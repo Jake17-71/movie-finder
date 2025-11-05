@@ -1,0 +1,152 @@
+@use 'functions' as *;
+
+@mixin fluid-text($max: 48, $min: 16) {
+  font-size: fluid($max, $min);
+}
+
+@mixin hide {
+  visibility: hidden;
+  opacity: 0;
+}
+
+@mixin show {
+  visibility: visible;
+  opacity: 1;
+}
+
+@mixin flex-center($isInline: false) {
+  @if $isInline {
+    display: inline-flex;
+  } @else {
+    display: flex;
+  }
+
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin abs-cover {
+  position: absolute;
+  inset: 0;
+}
+
+@mixin abs-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+}
+
+@mixin abs-x {
+  position: absolute;
+  left: 50%;
+  translate: -50%;
+}
+
+@mixin abs-y {
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+}
+
+@mixin square($size) {
+  width: $size;
+  height: $size;
+}
+
+@mixin visually-hidden {
+  position: absolute !important;
+  overflow: hidden !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(100%) !important;
+}
+
+@mixin focus-visible-typing {
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  // Для полей где печатают - убираем рамку при активном использовании
+  &:focus-visible:not(:active) {
+    outline: 2px dashed var(--text);
+    outline-offset: 4px;
+    transition-duration: 0s !important;
+  }
+
+  &:focus:not(:focus-visible) {
+    outline: none;
+    box-shadow: none;
+  }
+
+  // Убираем рамку когда пользователь начинает печатать
+  &:focus:active,
+  &:focus-visible:active {
+    outline: none !important;
+  }
+
+  // Убираем outline при наличии значения в поле
+  &:not(:placeholder-shown):focus-visible {
+    outline: none !important;
+  }
+}
+
+@mixin focus-visible-no-typing {
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  // Для полей где НЕ печатают - всегда показываем рамку при focus-visible
+  &:focus-visible {
+    outline: 2px dashed var(--text);
+    outline-offset: 4px;
+    transition-duration: 0s !important;
+  }
+
+  &:focus:not(:focus-visible) {
+    outline: none;
+    box-shadow: none;
+  }
+}
+
+@mixin focus-visible-masked-input {
+  &:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  // Показываем рамку при focus-visible
+  &:focus-visible {
+    outline: 2px dashed var(--text);
+    outline-offset: 4px;
+    transition-duration: 0s !important;
+  }
+
+  &:focus:not(:focus-visible) {
+    outline: none;
+    box-shadow: none;
+  }
+
+  // Убираем рамку при активном нажатии
+  &:focus-visible:active {
+    outline: none !important;
+  }
+
+  // Убираем рамку если поле имеет классы валидации (значит пользователь начал печатать)
+  &.valid:focus-visible,
+  &.invalid:focus-visible {
+    outline: none !important;
+  }
+}
+
+@mixin disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

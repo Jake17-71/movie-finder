@@ -1,0 +1,49 @@
+{
+  "name": "movie-finder",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint:js": "eslint src --ext .js,.jsx,.ts,.tsx",
+    "lint:js:fix": "eslint src --ext .js,.jsx,.ts,.tsx --fix",
+    "lint:css": "stylelint \"**/*.{css,scss,pcss}\"",
+    "lint:css:fix": "stylelint \"**/*.{css,scss,pcss}\" --fix",
+    "format": "prettier . --check",
+    "format:fix": "prettier . --write",
+    "lint": "npm-run-all lint:js lint:css format",
+    "lint:fix": "npm-run-all lint:js:fix lint:css:fix format:fix"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "7.28.4",
+    "@babel/plugin-syntax-jsx": "7.27.1",
+    "@typescript-eslint/eslint-plugin": "8.46.1",
+    "@typescript-eslint/parser": "8.46.1",
+    "eslint": "9.38.0",
+    "eslint-config-prettier": "10.1.8",
+    "eslint-plugin-jsx-a11y": "6.10.2",
+    "eslint-plugin-prettier": "5.5.1",
+    "eslint-plugin-react": "7.37.5",
+    "eslint-plugin-react-hooks": "7.0.0",
+    "npm-run-all": "4.1.5",
+    "postcss": "8.5.6",
+    "postcss-preset-env": "10.2.4",
+    "postcss-pxtorem": "6.1.0",
+    "prettier": "3.6.2",
+    "sass": "1.80.6",
+    "stylelint": "16.25.0",
+    "stylelint-config-standard-scss": "15.0.1",
+    "stylelint-order": "7.0.0",
+    "stylelint-scss": "6.12.1",
+    "stylelint-selector-bem-pattern": "4.0.1",
+    "typescript-eslint": "^8.46.1",
+    "vite": "^7.1.7"
+  },
+  "browserslist": [
+    ">0.5%",
+    "last 2 versions",
+    "not dead"
+  ]
+}

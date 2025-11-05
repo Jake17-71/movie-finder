@@ -1,0 +1,62 @@
+@use 'helpers/index' as *;
+
+:root {
+  --bg-dark: oklch(10% 0.005 20deg);
+  --bg: oklch(15% 0.005 20deg);
+  --bg-light: oklch(20% 0.005 20deg);
+  --text: oklch(96% 0.01 20deg);
+  --text-muted: oklch(76% 0.01 20deg);
+  --highlight: oklch(50% 0.01 20deg);
+  --border-color: oklch(40% 0.01 20deg);
+  --border-muted: oklch(30% 0.01 20deg);
+  --primary: oklch(76% 0.1 20deg);
+  --secondary: oklch(76% 0.1 200deg);
+  --danger: oklch(70% 0.05 30deg);
+  --warning: oklch(70% 0.05 100deg);
+  --success: oklch(70% 0.05 160deg);
+  --info: oklch(70% 0.05 260deg);
+
+  body.light {
+    --bg-dark: oklch(92% 0.005 20deg);
+    --bg: oklch(96% 0.005 20deg);
+    --bg-light: oklch(100% 0.005 20deg);
+    --text: oklch(15% 0.01 20deg);
+    --text-muted: oklch(40% 0.01 20deg);
+    --highlight: oklch(100% 0.01 20deg);
+    --border-color: oklch(60% 0.01 20deg);
+    --border-muted: oklch(70% 0.01 20deg);
+    --primary: oklch(40% 0.1 20deg);
+    --secondary: oklch(40% 0.1 200deg);
+    --danger: oklch(50% 0.05 30deg);
+    --warning: oklch(50% 0.05 100deg);
+    --success: oklch(50% 0.05 160deg);
+    --info: oklch(50% 0.05 260deg);
+  }
+
+  --border: var(--border-width-m) solid var(--border-color);
+
+  --border-width-xl: 6px;
+  --border-width-l: 4px;
+  --border-width-m: 3px;
+  --border-width-xm: 2px;
+  --border-width-s: 1px;
+
+  --border-radius-l: 12px;
+  --border-radius-m: 10px;
+  --border-radius: 8px;
+  --border-radius-xs: 6px;
+  --border-radius-xxs: 5px;
+  --border-radius-xxxs: 4px;
+
+  --input-height: 48px;
+
+  --font-family-base: 'Rubik', sans-serif;
+
+  --container-width: #{fluid-to-laptop(
+      $container-desktop-width,
+      $container-laptop-width
+    )};
+  --container-padding-x: 16px;
+
+  --transition-duration: 0.2s;
+}
