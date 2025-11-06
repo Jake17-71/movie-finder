@@ -9,11 +9,48 @@ html {
 body {
   @include fluid-text(18, 14);
 
+  position: relative;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
+  max-height: 100vh;
+  overflow-x: hidden;
   font-family: var(--font-family-base), sans-serif;
   color: var(--text);
   background-color: var(--bg);
+
+  // Liquid glass background effect
+  &::before {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    content: '';
+    background: radial-gradient(
+        ellipse at top left,
+        hsl(270deg 60% 30% / 20%) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        ellipse at bottom right,
+        hsl(210deg 60% 30% / 20%) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        ellipse at center,
+        hsl(180deg 50% 25% / 10%) 0%,
+        transparent 70%
+      );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  // Ensure content is above the background
+  > * {
+    position: relative;
+    z-index: 1;
+  }
 }
 
 h1,

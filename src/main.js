@@ -1,6 +1,6 @@
 import './styles/styles.scss'
 
-import ExampleCollection from './modules/ExampleCollection'
+import ThemeChange from './modules/ThemeChange'
 
-new ExampleCollection()
+new ThemeChange()
 

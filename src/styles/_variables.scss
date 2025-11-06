@@ -1,36 +1,111 @@
 @use 'helpers/index' as *;
 
 :root {
-  --bg-dark: oklch(10% 0.005 20deg);
-  --bg: oklch(15% 0.005 20deg);
-  --bg-light: oklch(20% 0.005 20deg);
-  --text: oklch(96% 0.01 20deg);
-  --text-muted: oklch(76% 0.01 20deg);
-  --highlight: oklch(50% 0.01 20deg);
-  --border-color: oklch(40% 0.01 20deg);
-  --border-muted: oklch(30% 0.01 20deg);
-  --primary: oklch(76% 0.1 20deg);
-  --secondary: oklch(76% 0.1 200deg);
-  --danger: oklch(70% 0.05 30deg);
-  --warning: oklch(70% 0.05 100deg);
-  --success: oklch(70% 0.05 160deg);
-  --info: oklch(70% 0.05 260deg);
+  // Liquid Glass Theme - Dark Mode
+  // Background layers with transparency for glass effect
+  --bg-dark: hsl(220deg 20% 8%);
+  --bg: hsl(220deg 18% 12%);
+  --bg-light: hsl(220deg 16% 18%);
+
+  // Glass surface with blur effect
+  --glass-bg: hsl(220deg 15% 25% / 8%);
+  --glass-bg-hover: hsl(220deg 15% 30% / 25%);
+  --glass-border: hsl(0deg 0% 100% / 10%);
+
+  // Text colors
+  --text: hsl(220deg 15% 96%);
+  --text-muted: hsl(220deg 12% 70%);
+  --text-secondary: hsl(220deg 10% 60%);
+
+  // Highlight
+  --highlight: hsl(220deg 20% 45%);
+
+  // Border colors
+  --border-color: hsl(220deg 25% 45% / 40%);
+  --border-muted: hsl(220deg 20% 35% / 20%);
+
+  // Gradient borders
+  --border-gradient: linear-gradient(
+    135deg,
+    hsl(270deg 80% 65% / 60%),
+    hsl(210deg 75% 60% / 50%),
+    hsl(180deg 70% 55% / 40%),
+    hsl(270deg 80% 65% / 60%)
+  );
+
+  --border-gradient-hover: linear-gradient(
+    135deg,
+    hsl(270deg 85% 70% / 80%),
+    hsl(210deg 80% 65% / 70%),
+    hsl(180deg 75% 60% / 60%),
+    hsl(270deg 85% 70% / 80%)
+  );
+
+  // Semantic colors with HSL
+  --primary: hsl(210deg 85% 65%);
+  --primary-hover: hsl(210deg 90% 70%);
+  --secondary: hsl(270deg 75% 65%);
+  --secondary-hover: hsl(270deg 80% 70%);
+  --danger: hsl(0deg 75% 65%);
+  --warning: hsl(40deg 90% 60%);
+  --success: hsl(150deg 65% 55%);
+  --info: hsl(210deg 85% 65%);
+
+  // Blur values for glass effect
+  --blur-sm: 12px;
+  --blur-md: 20px;
+  --blur-lg: 32px;
+  --blur-xl: 48px;
 
   body.light {
-    --bg-dark: oklch(92% 0.005 20deg);
-    --bg: oklch(96% 0.005 20deg);
-    --bg-light: oklch(100% 0.005 20deg);
-    --text: oklch(15% 0.01 20deg);
-    --text-muted: oklch(40% 0.01 20deg);
-    --highlight: oklch(100% 0.01 20deg);
-    --border-color: oklch(60% 0.01 20deg);
-    --border-muted: oklch(70% 0.01 20deg);
-    --primary: oklch(40% 0.1 20deg);
-    --secondary: oklch(40% 0.1 200deg);
-    --danger: oklch(50% 0.05 30deg);
-    --warning: oklch(50% 0.05 100deg);
-    --success: oklch(50% 0.05 160deg);
-    --info: oklch(50% 0.05 260deg);
+    // Liquid Glass Theme - Light Mode
+    --bg-dark: hsl(220deg 25% 92%);
+    --bg: hsl(220deg 20% 96%);
+    --bg-light: hsl(220deg 15% 100%);
+
+    // Glass surface for light mode
+    --glass-bg: hsl(220deg 20% 100% / 20%);
+    --glass-bg-hover: hsl(220deg 20% 100% / 30%);
+    --glass-border: hsl(220deg 20% 0% / 8%);
+
+    // Text colors
+    --text: hsl(220deg 20% 12%);
+    --text-muted: hsl(220deg 15% 40%);
+    --text-secondary: hsl(220deg 12% 50%);
+
+    // Highlight
+    --highlight: hsl(220deg 25% 95%);
+
+    // Border colors
+    --border-color: hsl(220deg 20% 40% / 45%);
+    --border-muted: hsl(220deg 15% 50% / 25%);
+
+    // Gradient borders for light mode
+    --border-gradient: linear-gradient(
+      135deg,
+      hsl(270deg 70% 55% / 50%),
+      hsl(210deg 65% 50% / 40%),
+      hsl(180deg 60% 45% / 35%),
+      hsl(270deg 70% 55% / 50%)
+    );
+
+    --border-gradient-hover: linear-gradient(
+      135deg,
+      hsl(270deg 75% 60% / 70%),
+      hsl(210deg 70% 55% / 60%),
+      hsl(180deg 65% 50% / 55%),
+      hsl(270deg 75% 60% / 70%)
+    );
+
+    // Semantic colors adjusted for light mode
+    --primary: hsl(210deg 90% 45%);
+    --primary-hover: hsl(210deg 95% 40%);
+    --secondary: hsl(270deg 80% 50%);
+    --secondary-hover: hsl(270deg 85% 45%);
+    --danger: hsl(0deg 80% 55%);
+    --warning: hsl(40deg 95% 50%);
+    --success: hsl(150deg 70% 45%);
+    --info: hsl(210deg 90% 50%);
   }
 
   --border: var(--border-width-m) solid var(--border-color);
@@ -48,7 +123,7 @@
   --border-radius-xxs: 5px;
   --border-radius-xxxs: 4px;
 
-  --input-height: 48px;
+  --input-height: 44px;
 
   --font-family-base: 'Rubik', sans-serif;
 
