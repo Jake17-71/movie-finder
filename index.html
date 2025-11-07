@@ -189,5 +189,228 @@
         </button>
       </div>
     </header>
+
+    <main class="main">
+      <section class="search">
+        <h1 class="visually-hidden">Поиск фильмов</h1>
+
+        <div class="tabs">
+          <div class="tabs__nav" role="tablist">
+            <button
+              class="tabs__button button is-active"
+              role="tab"
+              type="button"
+              aria-selected="true"
+              aria-controls="manual-search-panel"
+              id="manual-search-tab"
+              data-js-tabs-button
+            >
+              Обычный поиск
+            </button>
+            <button
+              class="tabs__button button"
+              role="tab"
+              type="button"
+              aria-selected="false"
+              tabindex="-1"
+              aria-controls="ai-search-panel"
+              id="ai-search-tab"
+              data-js-tabs-button
+            >
+              Поиск с ИИ
+            </button>
+          </div>
+
+          <div class="tabs__content">
+            <!-- Manual Search Panel -->
+            <div
+              class="tabs__panel is-active"
+              role="tabpanel"
+              aria-labelledby="manual-search-tab"
+              id="manual-search-panel"
+              tabindex="0"
+              data-js-tabs-content
+            >
+              <form
+                class="search-form"
+                id="manual-search-form"
+              >
+                <div class="search-form__field">
+                  <label
+                    for="movie-title"
+                    class="search-form__label visually-hidden"
+                  >
+                    Название фильма
+                  </label>
+                  <input
+                    class="search-form__input"
+                    type="text"
+                    id="movie-title"
+                    name="movie-title"
+                    placeholder="Введите название фильма"
+                    autocomplete="off"
+                  />
+                </div>
+
+                <div class="filters">
+                  <p class="filters__description">
+                    Вы также можете воспользоваться расширенным поиском
+                  </p>
+                  <button
+                    type="button"
+                    class="filters__toggle button"
+                    aria-expanded="false"
+                    aria-controls="advanced-filters"
+                  >
+                    Расширенный поиск
+                  </button>
+
+                  <div class="filters__content" id="advanced-filters">
+                    <div class="filters__group">
+                      <label
+                        for="movie-genre"
+                        class="filters__label"
+                      >
+                        Жанр:
+                      </label>
+                      <select
+                        name="movie-genre"
+                        id="movie-genre"
+                        class="filters__select"
+                      >
+                        <option value="">Выберите жанр</option>
+                        <option value="horror">Хоррор</option>
+                        <option value="comedy">Комедия</option>
+                      </select>
+                    </div>
+
+                    <div class="filters__group">
+                      <fieldset class="filters__fieldset">
+                        <legend class="filters__label">Год выпуска:</legend>
+                        <div class="filters__year-range">
+                          <label class="filters__year-label">
+                            <span class="filters__year-text">От</span>
+                            <input
+                              class="filters__input filters__input--year"
+                              type="number"
+                              id="movie-year-from"
+                              name="movie-year-from"
+                              min="1874"
+                              max="2025"
+                              placeholder="1847"
+                              aria-label="Год выпуска от"
+                            />
+                          </label>
+                          <label class="filters__year-label">
+                            <span class="filters__year-text">До</span>
+                            <input
+                              class="filters__input filters__input--year"
+                              type="number"
+                              id="movie-year-to"
+                              name="movie-year-to"
+                              min="1874"
+                              max="2025"
+                              placeholder="2025"
+                              aria-label="Год выпуска до"
+                            />
+                          </label>
+                        </div>
+                      </fieldset>
+                    </div>
+
+                    <div class="filters__group">
+                      <label
+                        for="movie-rating"
+                        class="filters__label"
+                      >
+                        Минимальный рейтинг:
+                      </label>
+                      <input
+                        class="filters__range"
+                        type="range"
+                        id="movie-rating"
+                        name="movie-rating"
+                        min="0"
+                        max="10"
+                        step="0.1"
+                        value="0"
+                        aria-valuemin="0"
+                        aria-valuemax="10"
+                        aria-valuenow="0"
+                      />
+                      <output
+                        class="filters__output"
+                        for="movie-rating"
+                        aria-live="polite"
+                      >
+                        0
+                      </output>
+                    </div>
+                  </div>
+                </div>
+
+                <button
+                  type="button"
+                  class="search-form__submit button"
+                >
+                  Найти фильм
+                </button>
+              </form>
+            </div>
+
+            <!-- AI Search Panel -->
+            <div
+              class="tabs__panel"
+              role="tabpanel"
+              aria-labelledby="ai-search-tab"
+              id="ai-search-panel"
+              tabindex="0"
+              data-js-tabs-content
+            >
+              <form
+                class="search-form search-form--ai"
+                id="ai-search-form"
+              >
+                <div class="search-form__field">
+                  <label
+                    for="ai-description"
+                    class="search-form__label"
+                  >
+                    Опишите фильм своими словами
+                  </label>
+                  <textarea
+                    class="search-form__textarea"
+                    id="ai-description"
+                    name="ai-description"
+                    rows="10"
+                    placeholder="Например: Популярный фильм с Джонни Депом про пиратов"
+                    autocomplete="off"
+                    required
+                  ></textarea>
+                </div>
+
+                <div class="search-form__ai-output">
+                  <p class="search-form__output-label">Ответ ИИ:</p>
+                  <output
+                    class="search-form__output"
+                    id="ai-result"
+                    aria-live="polite"
+                  >
+                    Пираты Карибского моря
+                  </output>
+                </div>
+
+                <button
+                  type="button"
+                  class="search-form__submit button"
+                >
+                  Найти фильм
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   </body>
 </html>
