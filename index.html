@@ -411,6 +411,90 @@
           </div>
         </div>
       </section>
+
+      <section class="result">
+        <h2 class="visually-hidden">Результаты поиска</h2>
+
+        <div class="result__found">
+          <p class="result__found-text">
+            Найдено: <span class="result__found-number">1</span> фильмов
+          </p>
+        </div>
+        <div class="result__list">
+          <article class="movie-card">
+            <div class="movie-card__image-wrapper">
+              <img
+                class="movie-card__image"
+                src="/public/Pirates.jpg"
+                alt="Pirates movie poster"
+                width="120"
+                height="120"
+                loading="lazy"
+              />
+            </div>
+            <div class="movie-card__info">
+              <div class="movie-card__meta">
+                <p class="movie-card__duration">2:30</p>
+              </div>
+              <div class="movie-card__meta">
+                <p class="movie-card__rating-text">
+                  <span class="movie-card__rating">6,7</span>/10
+                </p>
+              </div>
+            </div>
+            <div class="movie-card__title-wrapper">
+              <h3 class="movie-card__title h5">Pirates</h3>
+            </div>
+          </article>
+        </div>
+        <button
+          type="button"
+          class="result__load-more button"
+        >
+          Загрузить еще
+        </button>
+      </section>
     </main>
+
+    <dialog class="movie-dialog">
+      <div class="movie-dialog__container">
+        <button
+          type="button"
+          class="movie-dialog__close button"
+          aria-label="Закрыть диалог"
+        >
+          ×
+        </button>
+
+        <div class="movie-dialog__content">
+          <div class="movie-dialog__poster-wrapper">
+            <img
+              class="movie-dialog__poster"
+              src="/public/Pirates.jpg"
+              alt="Pirates movie poster"
+              width="250"
+              height="300"
+              loading="lazy"
+            />
+          </div>
+
+          <div class="movie-dialog__info">
+            <h2 class="movie-dialog__title h5">Pirates</h2>
+
+            <div class="movie-dialog__meta">
+              <p class="movie-dialog__duration">2:30</p>
+              <p class="movie-dialog__rating-text">
+                <span class="movie-dialog__rating">6,7</span>/10
+              </p>
+              <p class="movie-dialog__year-text">
+                Дата выхода: <span class="movie-dialog__year">2019</span>
+              </p>
+            </div>
+
+            <p class="movie-dialog__overview">BlaBlaBlaBlaBla</p>
+          </div>
+        </div>
+      </div>
+    </dialog>
   </body>
 </html>
