@@ -7,18 +7,17 @@
   justify-content: space-between;
   align-items: center;
   padding: clamp(12px, 3vw, 18px) var(--container-padding-x);
+  margin-bottom: calc(var(--container-padding-x) * 2);
 
-  // Liquid glass background with blur effect
   &::before {
     position: absolute;
     inset: 0;
     z-index: -2;
     width: 100vw;
     margin-left: calc(50% - 50vw);
-    background: var(--glass-bg);
-    border-bottom: 1px solid var(--glass-border);
-    backdrop-filter: blur(var(--blur-xl)) saturate(120%);
-    -webkit-backdrop-filter: blur(var(--blur-xl)) saturate(120%);
+    background: var(--bg-dark);
+    border-bottom: var(--border-width-s) solid var(--border-muted);
+    box-shadow: var(--shadow-l);
     content: '';
   }
 
@@ -32,11 +31,6 @@
   &__icon {
     flex-shrink: 0;
     font-size: clamp(28px, 5vw, 40px);
-    background: var(--border-gradient);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 0 8px hsl(270deg 80% 65% / 20%));
   }
 
   &__title {
@@ -45,6 +39,5 @@
     pointer-events: none;
     font-weight: 600;
     color: var(--text);
-    text-shadow: 0 2px 12px hsl(220deg 20% 0% / 20%);
   }
 }

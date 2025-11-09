@@ -2,16 +2,32 @@
 
 .button {
   height: var(--input-height);
-  border-radius: 34px;
-  transition-duration: var(--transition-duration-slow);
-  border: none;
-  background: transparent;
-  backdrop-filter: blur(10px);
-  color: var(--text);
+  background-color: var(--accent);
+  padding: calc(var(--container-padding-x) / 2);
+  border-radius: 20px;
+  width: fit-content;
+  border: var(--border-width-xm) solid var(--accent);
+  color: var(--bg);
+  font-weight: 500;
+  transition: background-color var(--transition-duration) ease,
+  transform var(--transition-duration) ease,
+  box-shadow var(--transition-duration) ease;
+  box-shadow: var(--shadow-m);
 
   @include hover() {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-l);
     transition-duration: var(--transition-duration);
-    background-color: var(--border-muted);
+  }
+
+  &:focus {
+    box-shadow: var(--shadow-m) !important;
+  }
+
+  &:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-l);
   }
 
   @include focus-visible-no-typing;
@@ -21,13 +37,14 @@
 
     position: relative;
     width: var(--sizeButton);
-    background: var(--glass-bg);
-    border: 1px solid var(--border-color);
-    backdrop-filter: blur(var(--blur-xl)) saturate(180%);
-    -webkit-backdrop-filter: blur(var(--blur-xl)) saturate(180%);
+    background: var(--bg-light);
+    border: var(--border);
+    border-width: var(--border-width-xm);
+    box-shadow: var(--shadow-m);
     transition: transform var(--transition-duration-slow) cubic-bezier(0.34, 1.56, 0.64, 1),
       background var(--transition-duration-slow) ease-in-out,
-      border-color var(--transition-duration-slow) ease-in-out;
+      border-color var(--transition-duration-slow) ease-in-out,
+      box-shadow var(--transition-duration-slow) ease-in-out;
 
     @include tablet {
       --sizeButton: 76px;
@@ -36,11 +53,13 @@
 
     @include hover {
       transform: translateY(-2px);
-      background: var(--glass-bg-hover);
+      box-shadow: var(--shadow-m);
+      background: var(--highlight);
     }
 
     &:active {
       transform: translateY(0) scale(0.98);
+      box-shadow: var(--shadow-l);
     }
 
     &-toggle {
@@ -55,16 +74,13 @@
       svg {
         width: calc(var(--sizeButton) / 4.25);
         height: calc(var(--sizeButton) / 4.25);
-        border: 1px solid var(--glass-border);
         border-radius: 50%;
-        background: hsl(0deg 0% 100% / 8%);
-        backdrop-filter: blur(var(--blur-md)) saturate(150%);
-        -webkit-backdrop-filter: blur(var(--blur-md)) saturate(150%);
-        box-shadow: 0 2px 8px hsl(220deg 20% 0% / 20%),
-          inset 0 1px 2px hsl(0deg 0% 100% / 15%);
+        background: var(--bg-dark);
+        box-shadow: var(--shadow-l);
         transition: background var(--transition-duration-slow) ease-in-out,
           transform var(--transition-duration-slow) cubic-bezier(0.34, 1.56, 0.64, 1),
-          border-color var(--transition-duration-slow) ease-in-out;
+          border-color var(--transition-duration-slow) ease-in-out,
+          box-shadow var(--transition-duration-slow) ease-in-out;
       }
 
       &.is-active {
@@ -74,10 +90,51 @@
 
         svg {
           transform: rotate(360deg);
-          background: hsl(0deg 0% 100% / 12%);
-          border-color: hsl(0deg 0% 100% / 20%);
         }
       }
+    }
+  }
+}
+
+.search-form__submit {
+  border-radius: var(--border-radius-l);
+}
+
+.filters__toggle {
+  --input-height: 40px;
+  --icon-size: 20px;
+
+  padding: calc(var(--container-padding-x) / 3);
+  line-height: 1.4;
+  border-radius: var(--border-radius-l);
+
+  position: relative;
+  padding-right: calc(var(--icon-size) * 2);
+
+  &:after {
+    content: '';
+
+    @include abs-y;
+
+    pointer-events: none;
+
+    @include square(var(--icon-size));
+
+    right: calc(var(--icon-size) / 2);
+    background-color: var(--bg);
+    mask-image: url("/movie-finder/arrow.svg");
+    mask-repeat: no-repeat;
+    mask-position: center;
+    mask-size: contain;
+
+    transform: rotate(180deg);
+
+    transition: transform var(--transition-duration-slow) ease-in-out;
+  }
+
+  &[aria-expanded="true"] {
+    &:after {
+      transform: rotate(0deg);
     }
   }
 }

@@ -1,111 +1,64 @@
 @use 'helpers/index' as *;
 
 :root {
-  // Liquid Glass Theme - Dark Mode
-  // Background layers with transparency for glass effect
-  --bg-dark: hsl(220deg 20% 8%);
-  --bg: hsl(220deg 18% 12%);
-  --bg-light: hsl(220deg 16% 18%);
+  --bg-dark: oklch(0.19 0.02 30);
+  --bg: oklch(0.24 0.025 30);
+  --bg-light: oklch(0.30 0.03 30);
 
-  // Glass surface with blur effect
-  --glass-bg: hsl(220deg 15% 25% / 8%);
-  --glass-bg-hover: hsl(220deg 15% 30% / 25%);
-  --glass-border: hsl(0deg 0% 100% / 10%);
+  --text: oklch(0.88 0.02 60);
+  --text-muted: oklch(0.71 0.025 50);
 
-  // Text colors
-  --text: hsl(220deg 15% 96%);
-  --text-muted: hsl(220deg 12% 70%);
-  --text-secondary: hsl(220deg 10% 60%);
+  --highlight: oklch(0.48 0.14 40);
 
-  // Highlight
-  --highlight: hsl(220deg 20% 45%);
+  --border-color: oklch(0.40 0.035 40);
+  --border-muted: oklch(0.35 0.035 35);
 
-  // Border colors
-  --border-color: hsl(220deg 25% 45% / 40%);
-  --border-muted: hsl(220deg 20% 35% / 20%);
+  --primary: oklch(0.6 0.12 45);
+  --primary-hover: oklch(0.68 0.14 45);
+  --primary-active: oklch(0.64 0.12 45);
 
-  // Gradient borders
-  --border-gradient: linear-gradient(
-    135deg,
-    hsl(270deg 80% 65% / 60%),
-    hsl(210deg 75% 60% / 50%),
-    hsl(180deg 70% 55% / 40%),
-    hsl(270deg 80% 65% / 60%)
-  );
+  --accent: oklch(0.56 0.16 50);
+  --accent-dark: oklch(0.46 0.14 40);
 
-  --border-gradient-hover: linear-gradient(
-    135deg,
-    hsl(270deg 85% 70% / 80%),
-    hsl(210deg 80% 65% / 70%),
-    hsl(180deg 75% 60% / 60%),
-    hsl(270deg 85% 70% / 80%)
-  );
+  --secondary: oklch(0.45 0.06 40);
+  --danger: oklch(0.62 0.15 25);
+  --warning: oklch(0.68 0.12 70);
+  --success: oklch(0.62 0.12 150);
+  --info: oklch(0.62 0.12 240);
 
-  // Semantic colors with HSL
-  --primary: hsl(210deg 85% 65%);
-  --primary-hover: hsl(210deg 90% 70%);
-  --secondary: hsl(270deg 75% 65%);
-  --secondary-hover: hsl(270deg 80% 70%);
-  --danger: hsl(0deg 75% 65%);
-  --warning: hsl(40deg 90% 60%);
-  --success: hsl(150deg 65% 55%);
-  --info: hsl(210deg 85% 65%);
-
-  // Blur values for glass effect
-  --blur-sm: 12px;
-  --blur-md: 20px;
-  --blur-lg: 32px;
-  --blur-xl: 48px;
+  /* shadows */
+  --shadow-s: inset 0 1px 2px #ffffff30, /* top highlight */ 0 1px 2px #00000030,
+    /* dark shadow */ 0 2px 4px #00000015; /* soft shadow */
+  --shadow-m: inset 0 1px 2px #ffffff50, /* top highlight */ 0 2px 4px #00000030,
+    /* dark shadow */ 0 4px 8px #00000015; /* soft shadow */
+  --shadow-l: inset 0 1px 2px #ffffff70, /* top highlight */ 0 4px 6px #00000030,
+    /* dark shadow */ 0 6px 10px #00000015; /* soft shadow */
 
   body.light {
-    // Liquid Glass Theme - Light Mode
-    --bg-dark: hsl(220deg 25% 92%);
-    --bg: hsl(220deg 20% 96%);
-    --bg-light: hsl(220deg 15% 100%);
+    --bg-dark: oklch(0.92 0.02 50);
+    --bg: oklch(0.96 0.015 50);
+    --bg-light: oklch(0.99 0.01 50);
 
-    // Glass surface for light mode
-    --glass-bg: hsl(220deg 20% 100% / 20%);
-    --glass-bg-hover: hsl(220deg 20% 100% / 30%);
-    --glass-border: hsl(220deg 20% 0% / 8%);
+    --text: oklch(0.22 0.03 30);
+    --text-muted: oklch(0.52 0.03 40);
 
-    // Text colors
-    --text: hsl(220deg 20% 12%);
-    --text-muted: hsl(220deg 15% 40%);
-    --text-secondary: hsl(220deg 12% 50%);
+    --highlight: oklch(0.44 0.14 40);
 
-    // Highlight
-    --highlight: hsl(220deg 25% 95%);
+    --border-color: oklch(0.68 0.04 40);
+    --border-muted: oklch(0.85 0.02 45);
 
-    // Border colors
-    --border-color: hsl(220deg 20% 40% / 45%);
-    --border-muted: hsl(220deg 15% 50% / 25%);
+    --primary: oklch(0.55 0.15 45);
+    --primary-hover: oklch(0.50 0.17 45);
+    --primary-active: oklch(0.60 0.14 45);
 
-    // Gradient borders for light mode
-    --border-gradient: linear-gradient(
-      135deg,
-      hsl(270deg 70% 55% / 50%),
-      hsl(210deg 65% 50% / 40%),
-      hsl(180deg 60% 45% / 35%),
-      hsl(270deg 70% 55% / 50%)
-    );
+    --accent: oklch(0.58 0.18 50);
+    --accent-dark: oklch(0.48 0.16 40);
 
-    --border-gradient-hover: linear-gradient(
-      135deg,
-      hsl(270deg 75% 60% / 70%),
-      hsl(210deg 70% 55% / 60%),
-      hsl(180deg 65% 50% / 55%),
-      hsl(270deg 75% 60% / 70%)
-    );
-
-    // Semantic colors adjusted for light mode
-    --primary: hsl(210deg 90% 45%);
-    --primary-hover: hsl(210deg 95% 40%);
-    --secondary: hsl(270deg 80% 50%);
-    --secondary-hover: hsl(270deg 85% 45%);
-    --danger: hsl(0deg 80% 55%);
-    --warning: hsl(40deg 95% 50%);
-    --success: hsl(150deg 70% 45%);
-    --info: hsl(210deg 90% 50%);
+    --secondary: oklch(0.50 0.08 40);
+    --danger: oklch(0.58 0.18 25);
+    --warning: oklch(0.65 0.15 70);
+    --success: oklch(0.58 0.15 150);
+    --info: oklch(0.58 0.15 240);
   }
 
   --border: var(--border-width-m) solid var(--border-color);

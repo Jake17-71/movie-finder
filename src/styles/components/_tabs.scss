@@ -1,0 +1,79 @@
+@use '../helpers' as *;
+
+.tabs {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  &__nav {
+    @include flex-center();
+    gap: 25px;
+    width: fit-content;
+    margin: 0 auto;
+    background-color: var(--bg);
+    padding: 10px;
+    border-radius: var(--border-radius);
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+
+    box-shadow: var(--shadow-m);
+  }
+
+  &__button {
+    position: relative;
+    flex-shrink: 0;
+    padding: 8px 16px;
+
+    @include focus-visible-no-typing;
+
+    &:active {
+      transform: translateY(0);
+    }
+
+    &.is-active {
+      background-color: var(--highlight);
+
+      &:hover {
+        transform: none;
+      }
+    }
+  }
+
+  &__content {
+    position: relative;
+    min-height: 200px;
+    background-color: var(--bg);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    box-shadow: var(--shadow-l);
+  }
+
+  &__panel {
+    padding: 24px;
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow-y: hidden;
+    transform: translateX(20px);
+    transition-property: opacity, visibility, transform;
+
+    &.is-active {
+      opacity: 1;
+      visibility: visible;
+      position: static;
+      transform: translateX(0);
+    }
+
+    > *:first-child {
+      margin-top: 0;
+    }
+
+    > *:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
