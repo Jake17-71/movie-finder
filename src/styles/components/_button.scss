@@ -14,6 +14,24 @@
   box-shadow var(--transition-duration) ease;
   box-shadow: var(--shadow-m);
 
+  @include mobile {
+    --input-height: 40px;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background-color: var(--accent-dark);
+    border-color: var(--accent-dark);
+
+    &:active,
+    &:hover {
+      box-shadow: var(--shadow-m);
+      transform: translateY(0);
+      background-color: var(--accent-dark);
+      border-color: var(--accent-dark);
+    }
+  }
+
   @include hover() {
     background: var(--primary-hover);
     transform: translateY(-2px);
@@ -98,6 +116,13 @@
 
 .search-form__submit {
   border-radius: var(--border-radius-l);
+  text-align: center;
+
+  @include tablet {
+    --input-height: 40px;
+
+    padding: calc(var(--container-padding-x) / 3);
+  }
 }
 
 .filters__toggle {
@@ -110,6 +135,10 @@
 
   position: relative;
   padding-right: calc(var(--icon-size) * 2);
+
+  @include mobile {
+    --input-height: 36px;
+  }
 
   &:after {
     content: '';

@@ -11,14 +11,16 @@
   font-weight: 500;
   color: var(--text);
 
-  padding: calc(var(--container-padding-x) * 2)
-  var(--container-padding-x)
-  var(--container-padding-x);
+  padding: 24px;
 
   min-height: 250px;
   width: 100%;
 
   box-shadow: var(--shadow-l);
+
+  @include tablet {
+    gap: 12px;
+  }
 
   &__found {
     position: relative;
@@ -33,6 +35,10 @@
       height: 1px;
       border-bottom: var(--border-width-s) solid var(--border-color);
       margin-top: 12px;
+
+      @include mobile {
+        margin-top: 6px;
+      }
     }
 
     &-number {
@@ -43,8 +49,12 @@
   &__list {
     --card-width: 200px;
 
-    @include mobile {
+    @include tablet {
       --card-width: 160px;
+    }
+
+    @include mobile {
+      --card-width: 140px;
     }
 
     width: 100%;
@@ -52,9 +62,19 @@
     grid-template-columns: repeat(auto-fill, minmax(var(--card-width), 1fr));
     gap: 24px;
     padding-block: var(--container-padding-x);
+
+    @include tablet {
+      gap: 12px;
+    }
   }
 
   &__load-more {
     border-radius: var(--border-radius-l);
+
+    @include tablet {
+      --input-height: 40px;
+
+      padding: calc(var(--container-padding-x) / 3);
+    }
   }
 }

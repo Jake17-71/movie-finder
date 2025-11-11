@@ -7,10 +7,19 @@
   width: 100%;
   margin-top: 24px;
 
+  @include tablet {
+    gap: 16px;
+    margin-top: 12px;
+  }
+
   &__header {
     display: flex;
     align-items: center;
     gap: 16px;
+
+    @include mobile {
+      flex-direction: column;
+    }
   }
 
   &__description {
@@ -20,11 +29,25 @@
   &__content {
     @include flex-center();
     gap: 25px;
+
+    @include tablet {
+      flex-direction: column;
+      align-items: start;
+      gap: 16px;
+    }
   }
 
   &__group {
     @include flex-center();
     gap: 10px;
+
+    @include tablet {
+      gap: 6px;
+    }
+
+    @include mobile-s {
+      flex-wrap: wrap;
+    }
   }
 
   &__label {
@@ -34,6 +57,10 @@
 
   &__select {
     --input-height: 36px;
+
+    @include tablet {
+      --input-height: 33px;
+    }
 
     height: var(--input-height);
     background-color: var(--accent);
@@ -64,15 +91,29 @@
   &__year-range {
     @include flex-center();
     gap: 10px;
+
+    @include tablet {
+      gap: 6px;
+    }
   }
 
   &__year-label {
     @include flex-center();
     gap: 10px;
+
+    @include tablet {
+      gap: 6px;
+    }
   }
 
   &__input {
     --input-height: 36px;
+
+    @include tablet {
+      &--year {
+        --input-height: 30px;
+      }
+    }
 
     height: var(--input-height);
     padding: calc(var(--container-padding-x) / 1.6);
@@ -133,5 +174,11 @@
     width: inherit;
     height: inherit;
     color: goldenrod;
+
+    @include square(24px);
+
+    @include tablet {
+      @include square(20px);
+    }
   }
 }

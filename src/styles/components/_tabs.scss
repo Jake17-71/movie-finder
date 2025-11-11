@@ -17,6 +17,10 @@
     scrollbar-width: none;
 
     box-shadow: var(--shadow-m);
+
+    @include laptop {
+      gap: 14px;
+    }
   }
 
   &__button {
@@ -33,9 +37,13 @@
     &.is-active {
       background-color: var(--primary);
 
-      &:hover {
+      @include hover(){
         transform: none;
       }
+    }
+
+    @include laptop {
+      padding: 4px 8px;
     }
   }
 
@@ -58,14 +66,15 @@
     right: 0;
     bottom: 0;
     overflow-y: hidden;
-    transform: translateX(20px);
+    transform: translateY(-20px);
+    transition-duration: var(--transition-duration);
     transition-property: opacity, visibility, transform;
 
     &.is-active {
       opacity: 1;
       visibility: visible;
       position: static;
-      transform: translateX(0);
+      transform: translateY(0);
     }
 
     > *:first-child {

@@ -9,8 +9,12 @@
   flex-direction: column;
   gap: 24px;
 
+  @include laptop {
+    gap: 16px;
+  }
+
   &--ai {
-    .search-form{
+    .search-form {
       &__field {
         &::after {
           display: none;
@@ -21,7 +25,6 @@
         @include flex-center();
         flex-direction: column;
         gap: 12px;
-
       }
 
       &__label {
@@ -32,6 +35,14 @@
         @include focus-visible-typing;
         width: 50vw;
         height: 25vh;
+
+        @include laptop {
+          width: 75vw;
+        }
+
+        @include tablet {
+          width: 80vw;
+        }
 
         font-weight: 500;
 
@@ -69,7 +80,20 @@
         @include flex-center();
         flex-direction: column;
         width: 50vw;
-        margin-top: 24px;
+        margin-top: 12px;
+
+        @include laptop {
+          width: 75vw;
+        }
+
+        @include tablet {
+          width: 80vw;
+          margin-top: 6px;
+        }
+
+        @include mobile {
+          margin-top: 0;
+        }
       }
 
       &__output-label {
@@ -91,6 +115,10 @@
         transition: background-color var(--transition-duration) ease,
         border-color var(--transition-duration) ease,
         box-shadow var(--transition-duration) ease;
+
+        @include tablet {
+          padding: 3px 6px;
+        }
       }
 
       &__output {
@@ -124,6 +152,14 @@
           color: var(--text-muted);
           font-weight: 400;
         }
+
+        @include tablet {
+          min-height: 100px;
+
+          padding: calc(var(--container-padding-x) * 1.5)
+          var(--container-padding-x)
+          var(--container-padding-x);
+        }
       }
     }
 
@@ -133,8 +169,24 @@
     position: relative;
     width: 50vw;
 
+    @include tablet {
+      width: 70vw;
+    }
+
+    @include mobile {
+      width: 80vw;
+    }
+
     &:first-child {
       margin-top: 24px;
+
+      @include tablet {
+        margin-top: 12px;
+      }
+
+      @include mobile {
+        margin-top: 6px;
+      }
     }
 
     &::after {
@@ -165,6 +217,12 @@
 
     padding: var(--container-padding-x);
     padding-right: 48px;
+
+    @include mobile {
+      --input-height: 40px;
+      padding: calc(var(--container-padding-x) / 2);
+      padding-right: 48px;
+    }
 
     transition: background-color var(--transition-duration) ease,
       border-color var(--transition-duration) ease,

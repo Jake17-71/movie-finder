@@ -5,11 +5,19 @@
   flex-direction: column;
   gap: 12px;
 
+  @include tablet {
+    gap: 6px;
+  }
+
   background-color: var(--bg-light);
   border: var(--border-width-xm) solid var(--border-color);
   border-radius: var(--border-radius);
   color: var(--text);
   padding: calc(var(--container-padding-x) / 2);
+
+  @include tablet {
+    padding: calc(var(--container-padding-x) / 1.5);
+  }
 
   width: 100%;
 
@@ -56,6 +64,7 @@
   &__info {
     display: flex;
     justify-content: space-between;
+    gap: 6px;
   }
 
   &__meta {
@@ -67,6 +76,10 @@
   &__duration {
     position: relative;
     padding-left: 27px;
+
+    @include tablet {
+      padding-left: 22px;
+    }
 
     &::before {
       @include abs-y;
@@ -80,6 +93,10 @@
 
       @include square(24px);
       left: 0;
+
+      @include tablet {
+        @include square(20px);
+      }
     }
   }
 
@@ -92,6 +109,16 @@
     width: inherit;
     height: inherit;
     color: goldenrod;
+
+    @include square(24px);
+
+    @include tablet {
+      @include square(20px);
+    }
+
+    @include mobile-s {
+      @include square(16px);
+    }
   }
 
   &__rating-wrapper {
