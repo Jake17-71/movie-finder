@@ -10,10 +10,10 @@ body {
   @include fluid-text(18, 14);
 
   position: relative;
+  overflow-x: hidden;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  overflow-x: hidden;
   font-family: var(--font-family-base), sans-serif;
   color: var(--text);
   background-color: var(--bg-dark);

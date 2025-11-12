@@ -27,7 +27,8 @@
   }
 
   &__content {
-    @include flex-center();
+    @include flex-center;
+
     gap: 25px;
 
     @include tablet {
@@ -38,7 +39,8 @@
   }
 
   &__group {
-    @include flex-center();
+    @include flex-center;
+
     gap: 10px;
 
     @include tablet {
@@ -63,20 +65,20 @@
     }
 
     height: var(--input-height);
-    background-color: var(--accent);
-    color: var(--bg);
     font-weight: 500;
+    color: var(--bg);
+    background-color: var(--accent);
     border: var(--border-width-xm) solid var(--accent);
     border-radius: var(--border-radius);
     box-shadow: var(--shadow-m);
 
     @include focus-visible-no-typing;
 
-    @include hover() {
+    @include hover {
       background: var(--primary-hover);
-      transform: translateY(-1px);
       box-shadow: var(--shadow-l);
       transition-duration: var(--transition-duration);
+      transform: translateY(-1px);
     }
 
     &:focus {
@@ -89,7 +91,8 @@
   }
 
   &__year-range {
-    @include flex-center();
+    @include flex-center;
+
     gap: 10px;
 
     @include tablet {
@@ -98,7 +101,8 @@
   }
 
   &__year-label {
-    @include flex-center();
+    @include flex-center;
+
     gap: 10px;
 
     @include tablet {
@@ -115,17 +119,17 @@
       }
     }
 
+    width: fit-content;
     height: var(--input-height);
     padding: calc(var(--container-padding-x) / 1.6);
-    width: fit-content;
+    font-weight: 500;
+    color: var(--text);
     background-color: var(--bg-light);
     border: var(--border-width-xm) solid var(--border);
     border-radius: var(--border-radius);
-    color: var(--text);
-    font-weight: 500;
     box-shadow: var(--shadow-m);
 
-    @include hover() {
+    @include hover {
       background: var(--bg);
       box-shadow: var(--shadow-l);
       transition-duration: var(--transition-duration);
@@ -148,24 +152,24 @@
 
   &__range {
     width: 100%;
+    margin: 0;
     cursor: pointer;
     accent-color: var(--accent);
-    margin: 0;
   }
 
   &__output,
   &__output-rating {
     font-weight: 600;
-    color: var(--text-muted);
     text-align: center;
+    color: var(--text-muted);
 
     &-wrapper {
-      @include flex-center();
+      @include flex-center;
     }
   }
 
   &__output-rating {
-    @include flex-center();
+    @include flex-center;
 
     gap: 3px;
   }

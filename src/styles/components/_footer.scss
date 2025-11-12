@@ -3,37 +3,40 @@
 .footer {
   @include flex-center;
 
-  position: relative;
   flex-shrink: 0;
-  padding: clamp(6px, 3vw, 10px) var(--container-padding-x);
+  position: relative;
   margin-top: calc(var(--container-padding-x) * 2);
+  padding: clamp(6px, 3vw, 10px) var(--container-padding-x);
 
   &::before {
+    content: '';
     position: absolute;
-    inset: 0;
     z-index: -2;
+    inset: 0;
     width: 100vw;
     margin-left: calc(50% - 50vw);
     background: var(--bg-dark);
     border-top: var(--border-width-s) solid var(--border-muted);
     box-shadow: var(--shadow-s);
-    content: '';
   }
 
   &__link {
     display: flex;
-    gap: clamp(6px, 1vw, 8px);
     align-items: center;
+    gap: clamp(6px, 1vw, 8px);
     padding: clamp(6px, 1vw, 8px) clamp(12px, 2vw, 16px);
     color: var(--text);
     background: var(--bg);
-    box-shadow: var(--shadow-m);
     border-radius: var(--border-radius);
-    transition: background-color var(--transition-duration) ease, color var(--transition-duration) ease, transform var(--transition-duration) ease;
+    box-shadow: var(--shadow-m);
+    transition:
+      background-color var(--transition-duration) ease,
+      color var(--transition-duration) ease,
+      transform var(--transition-duration) ease;
 
     @include hover {
-      background-color: var(--highlight);
       color: var(--primary);
+      background-color: var(--highlight);
       box-shadow: var(--shadow-l);
       transform: translateY(-2px);
     }

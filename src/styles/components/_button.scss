@@ -1,42 +1,43 @@
 @use '../helpers' as *;
 
 .button {
-  height: var(--input-height);
-  background-color: var(--accent);
-  padding: calc(var(--container-padding-x) / 2);
-  border-radius: 20px;
   width: fit-content;
-  border: var(--border-width-xm) solid var(--accent);
-  color: var(--bg);
+  height: var(--input-height);
+  padding: calc(var(--container-padding-x) / 2);
   font-weight: 500;
-  transition: background-color var(--transition-duration) ease,
-  transform var(--transition-duration) ease,
-  box-shadow var(--transition-duration) ease;
+  color: var(--bg);
+  background-color: var(--accent);
+  border: var(--border-width-xm) solid var(--accent);
+  border-radius: 20px;
   box-shadow: var(--shadow-m);
+  transition:
+    background-color var(--transition-duration) ease,
+    transform var(--transition-duration) ease,
+    box-shadow var(--transition-duration) ease;
 
   @include mobile {
     --input-height: 40px;
   }
 
   &:disabled {
-    cursor: not-allowed;
     background-color: var(--accent-dark);
     border-color: var(--accent-dark);
+    cursor: not-allowed;
 
     &:active,
     &:hover {
-      box-shadow: var(--shadow-m);
-      transform: translateY(0);
       background-color: var(--accent-dark);
       border-color: var(--accent-dark);
+      box-shadow: var(--shadow-m);
+      transform: translateY(0);
     }
   }
 
-  @include hover() {
+  @include hover {
     background: var(--primary-hover);
-    transform: translateY(-2px);
     box-shadow: var(--shadow-l);
     transition-duration: var(--transition-duration);
+    transform: translateY(-2px);
   }
 
   &:focus {
@@ -44,8 +45,8 @@
   }
 
   &:active {
-    transform: translateY(0);
     box-shadow: var(--shadow-l);
+    transform: translateY(0);
   }
 
   @include focus-visible-no-typing;
@@ -59,7 +60,9 @@
     border: var(--border);
     border-width: var(--border-width-xm);
     box-shadow: var(--shadow-m);
-    transition: transform var(--transition-duration-slow) cubic-bezier(0.34, 1.56, 0.64, 1),
+    transition:
+      transform var(--transition-duration-slow)
+        cubic-bezier(0.34, 1.56, 0.64, 1),
       background var(--transition-duration-slow) ease-in-out,
       border-color var(--transition-duration-slow) ease-in-out,
       box-shadow var(--transition-duration-slow) ease-in-out;
@@ -70,33 +73,35 @@
     }
 
     @include hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-m);
       background: var(--highlight);
+      box-shadow: var(--shadow-m);
+      transform: translateY(-2px);
     }
 
     &:active {
-      transform: translateY(0) scale(0.98);
       box-shadow: var(--shadow-l);
+      transform: translateY(0) scale(0.98);
     }
 
     &-toggle {
       @include abs-y;
       @include flex-center;
 
+      left: calc(var(--sizeButton) / 8);
       width: calc(var(--sizeButton) / 4);
       height: calc(var(--sizeButton) / 4);
-      left: calc(var(--sizeButton) / 8);
       transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 
       svg {
         width: calc(var(--sizeButton) / 4.25);
         height: calc(var(--sizeButton) / 4.25);
-        border-radius: 50%;
         background: var(--bg-dark);
+        border-radius: 50%;
         box-shadow: var(--shadow-l);
-        transition: background var(--transition-duration-slow) ease-in-out,
-          transform var(--transition-duration-slow) cubic-bezier(0.34, 1.56, 0.64, 1),
+        transition:
+          background var(--transition-duration-slow) ease-in-out,
+          transform var(--transition-duration-slow)
+            cubic-bezier(0.34, 1.56, 0.64, 1),
           border-color var(--transition-duration-slow) ease-in-out,
           box-shadow var(--transition-duration-slow) ease-in-out;
       }
@@ -115,8 +120,8 @@
 }
 
 .search-form__submit {
-  border-radius: var(--border-radius-l);
   text-align: center;
+  border-radius: var(--border-radius-l);
 
   @include tablet {
     --input-height: 40px;
@@ -129,40 +134,34 @@
   --input-height: 40px;
   --icon-size: 20px;
 
+  position: relative;
   padding: calc(var(--container-padding-x) / 3);
+  padding-right: calc(var(--icon-size) * 2);
   line-height: 1.4;
   border-radius: var(--border-radius-l);
-
-  position: relative;
-  padding-right: calc(var(--icon-size) * 2);
 
   @include mobile {
     --input-height: 36px;
   }
 
-  &:after {
+  &::after {
     content: '';
-
-    @include abs-y;
-
-    pointer-events: none;
-
-    @include square(var(--icon-size));
-
     right: calc(var(--icon-size) / 2);
     background-color: var(--bg);
-    mask-image: url("/movie-finder/arrow.svg");
+    transition: transform var(--transition-duration-slow) ease-in-out;
+    transform: rotate(180deg);
+    pointer-events: none;
+    mask-image: url('/movie-finder/arrow.svg');
     mask-repeat: no-repeat;
     mask-position: center;
     mask-size: contain;
 
-    transform: rotate(180deg);
-
-    transition: transform var(--transition-duration-slow) ease-in-out;
+    @include abs-y;
+    @include square(var(--icon-size));
   }
 
-  &[aria-expanded="true"] {
-    &:after {
+  &[aria-expanded='true'] {
+    &::after {
       transform: rotate(0deg);
     }
   }

@@ -1,24 +1,24 @@
 @use '../helpers' as *;
 
 .header {
+  flex-shrink: 0;
   position: relative;
   display: flex;
-  flex-shrink: 0;
   justify-content: space-between;
   align-items: center;
-  padding: clamp(12px, 3vw, 18px) var(--container-padding-x);
   margin-bottom: calc(var(--container-padding-x) * 2);
+  padding: clamp(12px, 3vw, 18px) var(--container-padding-x);
 
   &::before {
+    content: '';
     position: absolute;
-    inset: 0;
     z-index: -2;
+    inset: 0;
     width: 100vw;
     margin-left: calc(50% - 50vw);
     background: var(--bg-dark);
     border-bottom: var(--border-width-s) solid var(--border-muted);
     box-shadow: var(--shadow-l);
-    content: '';
   }
 
   &__logo {
@@ -30,14 +30,15 @@
 
   &__icon {
     @include square(clamp(36px, 5vw, 56px));
+
     flex-shrink: 0;
   }
 
   &__title {
     @include fluid-text(36, 20);
 
-    pointer-events: none;
     font-weight: 600;
     color: var(--text);
+    pointer-events: none;
   }
 }
