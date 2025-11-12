@@ -234,6 +234,7 @@
               <form
                 class="search-form"
                 id="manual-search-form"
+                data-js-manual-form
               >
                 <div class="search-form__field">
                   <label
@@ -262,12 +263,18 @@
                       class="filters__toggle button"
                       aria-expanded="false"
                       aria-controls="advanced-filters"
+                      data-js-filters-button
                     >
                       Расширенный поиск
                     </button>
                   </div>
 
-                  <div class="filters__content" id="advanced-filters">
+                  <div
+                    class="filters__content"
+                    id="advanced-filters"
+                    aria-expanded="false"
+                    data-js-filters-content
+                  >
                     <div class="filters__group">
                       <label
                         for="movie-genre"
@@ -337,12 +344,14 @@
                         aria-valuemin="0"
                         aria-valuemax="10"
                         aria-valuenow="0"
+                        data-js-filters-range
                       />
                       <div class="filters__output-wrapper">
                         <output
                           class="filters__output"
                           for="movie-rating"
                           aria-live="polite"
+                          data-js-filters-range-output
                         >
                           0
                         </output>
@@ -434,6 +443,7 @@
           <article
             class="movie-card"
             tabindex="0"
+            data-js-movie-card="0"
           >
             <div class="movie-card__image-wrapper">
               <img
@@ -478,10 +488,11 @@
 
     <dialog
       class="movie-dialog"
+      data-js-movie-modal
     >
       <div class="movie-dialog__container">
 
-        <div class="movie-dialog__content">
+        <div class="movie-dialog__content" data-js-movie-modal-content>
           <div class="movie-dialog__poster-wrapper">
             <img
               class="movie-dialog__poster"
@@ -522,6 +533,7 @@
             type="button"
             class="movie-dialog__close button"
             aria-label="Закрыть диалог"
+            data-js-movie-modal-close
           ></button>
         </div>
       </div>

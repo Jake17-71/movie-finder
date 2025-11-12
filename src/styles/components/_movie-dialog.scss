@@ -9,7 +9,7 @@
   height: 100%;
   max-height: 100vh;
   padding: 0;
-  background-color: oklch(0% 0 0deg / 0.85);
+  background-color: oklch(0% 0 0deg / 0.75);
   border: none;
   opacity: 0;
   transition:
@@ -27,11 +27,6 @@
       opacity: 0;
       transform: scale(0.95);
     }
-  }
-
-  &::backdrop {
-    background-color: oklch(0% 0 0deg / 0.85);
-    backdrop-filter: blur(8px);
   }
 
   &__container {
