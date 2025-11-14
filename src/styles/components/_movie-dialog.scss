@@ -202,8 +202,7 @@
   }
 
   &__duration,
-  &__rating-text,
-  &__year-text {
+  &__rating-text {
     @include flex-center;
 
     gap: 6px;

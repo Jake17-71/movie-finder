@@ -388,6 +388,7 @@
               <form
                 class="search-form search-form--ai"
                 id="ai-search-form"
+                data-js-ai-form
               >
                 <div class="search-form__field">
                   <label
@@ -401,8 +402,9 @@
                     id="ai-description"
                     name="ai-description"
                     rows="10"
-                    placeholder="Например: Популярный фильм с Джонни Депом про пиратов"
+                    placeholder="Например: Популярный фильм с Джонни Депом про пиратов (макс. 500 символов)"
                     autocomplete="off"
+                    maxlength="500"
                     required
                   ></textarea>
                 </div>
@@ -419,7 +421,7 @@
                 </div>
 
                 <button
-                  type="button"
+                  type="submit"
                   class="search-form__submit button"
                 >
                   Найти фильм
@@ -435,10 +437,14 @@
 
         <div class="result__found">
           <p class="result__found-text">
-            Найдено: <span class="result__found-number">1</span> фильмов
+            Найдено: <span class="result__found-number" data-js-found-number>1
+          </span> фильмов
           </p>
         </div>
-        <div class="result__list">
+        <div
+          class="result__list"
+          data-js-result-list
+        >
           <article
             class="movie-card"
             tabindex="0"
@@ -454,7 +460,7 @@
             </div>
             <div class="movie-card__info">
               <div class="movie-card__meta">
-                <p class="movie-card__duration">2:30</p>
+                <p class="movie-card__year">2025</p>
               </div>
               <div class="movie-card__meta">
                 <div class="movie-card__rating-text">
@@ -479,6 +485,7 @@
         <button
           type="button"
           class="result__load-more button"
+          data-js-load-more
         >
           Загрузить еще
         </button>
@@ -505,7 +512,7 @@
             <h2 class="movie-dialog__title h5">Pirates</h2>
 
             <div class="movie-dialog__meta">
-              <p class="movie-card__duration">2:30</p>
+              <p class="movie-card__year">2025</p>
               <div class="movie-card__rating-text">
                 <span class="movie-card__rating">6,7</span>
                 <div class="movie-card__rating-wrapper">
@@ -517,9 +524,6 @@
                   </svg>
                 </div>
               </div>
-              <p class="movie-dialog__year-text">
-                Дата выхода: <span class="movie-dialog__year">2019</span>
-              </p>
             </div>
             <div class="movie-dialog__overview-wrapper">
               <p class="movie-dialog__overview-description">Описание:</p>
