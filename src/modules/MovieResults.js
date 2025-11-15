@@ -1,5 +1,3 @@
-import Modals from './Modals.js'
-
 class MovieResults {
 
   selectors = {
@@ -7,11 +5,11 @@ class MovieResults {
     resultFoundNumberSelector: `[data-js-found-number]`,
   }
 
-  constructor () {
+  constructor (modals) {
     this.resultListElement = document.querySelector(this.selectors.resultListSelector)
     this.resultFoundNumberElement = document.querySelector(this.selectors.resultFoundNumberSelector)
 
-    this.modals = new Modals()
+    this.modals = modals
   }
 
   // Create and append movie card to results list

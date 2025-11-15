@@ -370,6 +370,7 @@
                 <button
                   type="submit"
                   class="search-form__submit button"
+                  data-js-manual-form-submit
                 >
                   Найти фильм
                 </button>
@@ -411,18 +412,46 @@
 
                 <div class="search-form__ai-output">
                   <p class="search-form__output-label">Ответ ИИ:</p>
-                  <output
-                    class="search-form__output"
-                    id="ai-result"
-                    aria-live="polite"
-                  >
-                    Пираты Карибского моря
-                  </output>
+                  <div class="search-form__output-wrapper">
+                    <div class="loader" data-js-ai-loading-spinner hidden>
+                      <div class="loader__circles">
+                        <div class="loader__circle-1"></div>
+                        <div class="loader__circle-2"></div>
+                        <div class="loader__circle-3"></div>
+                      </div>
+                    </div>
+                    <output
+                      class="search-form__output"
+                      id="ai-result"
+                      aria-live="polite"
+                    >
+                      <span
+                        class="search-form__output-movie-title"
+                        data-js-ai-movie-title
+                      >
+                        Пираты Карибского моря
+                      </span>
+                      <span
+                        class="search-form__output-movie-year"
+                        data-js-ai-movie-year
+                      >
+                        2003
+                      </span>
+                      <span
+                        class="search-form__output-movie-confidence"
+                        data-js-ai-movie-confidence
+                        title="Степень уверенности ИИ"
+                        data-confidence="high"
+                      >
+                      </span>
+                    </output>
+                  </div>
                 </div>
 
                 <button
                   type="submit"
                   class="search-form__submit button"
+                  data-js-ai-form-submit
                 >
                   Найти фильм
                 </button>
@@ -454,7 +483,7 @@
               <img
                 class="movie-card__image"
                 src="/public/Pirates.jpg"
-                alt="Pirates movie poster"
+                alt="Pirates"
                 loading="lazy"
               />
             </div>
@@ -489,6 +518,13 @@
         >
           Загрузить еще
         </button>
+        <div class="loader" data-js-loading-spinner hidden>
+          <div class="loader__circles">
+            <div class="loader__circle-1"></div>
+            <div class="loader__circle-2"></div>
+            <div class="loader__circle-3"></div>
+          </div>
+        </div>
       </section>
     </main>
 
@@ -503,18 +539,19 @@
             <img
               class="movie-dialog__poster"
               src="/public/Pirates.jpg"
-              alt="Pirates movie poster"
+              alt="Pirates"
               loading="lazy"
+              data-js-movie-modal-poster
             />
           </div>
 
           <div class="movie-dialog__info">
-            <h2 class="movie-dialog__title h5">Pirates</h2>
+            <h2 class="movie-dialog__title h5" data-js-movie-modal-title>Pirates</h2>
 
             <div class="movie-dialog__meta">
-              <p class="movie-card__year">2025</p>
+              <p class="movie-card__year" data-js-movie-modal-year>2025</p>
               <div class="movie-card__rating-text">
-                <span class="movie-card__rating">6,7</span>
+                <span class="movie-card__rating" data-js-movie-modal-rating>6,7</span>
                 <div class="movie-card__rating-wrapper">
                   /10
                   <svg class="movie-card__star" width="24px"
@@ -527,7 +564,7 @@
             </div>
             <div class="movie-dialog__overview-wrapper">
               <p class="movie-dialog__overview-description">Описание:</p>
-              <p class="movie-dialog__overview">The Pirates of the Caribbean
+              <p class="movie-dialog__overview" data-js-movie-modal-overview>The Pirates of the Caribbean
                 franchise is a series of fantasy-adventure films, with the
                 first installment, The Curse of the Black Pearl, following the adventures of the eccentric pirate Captain Jack Sparrow and a blacksmith named Will Turner. They must team up to rescue Will's love, Elizabeth Swann, from a crew of cursed undead pirates led by Captain Barbossa. The curse, which makes them immortal but unable to die, can only be broken by returning a stolen Aztec treasure to its chest.</p>
             </div>

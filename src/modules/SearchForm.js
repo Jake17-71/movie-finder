@@ -1,4 +1,5 @@
 import MovieResults from './MovieResults.js'
+import AlertCollection from './Alert.js'
 
 class SearchForm {
 
@@ -12,7 +13,16 @@ class SearchForm {
     filtersRangeSelector: `[data-js-filters-range]`,
     filtersRangeOutputSelector: `[data-js-filters-range-output]`,
 
+    aiFormSubmitButtonSelector: `[data-js-ai-form-submit]`,
+    manualFormSubmitButtonSelector: `[data-js-manual-form-submit]`,
     loadMoreButtonSelector: `[data-js-load-more]`,
+
+    loaderAiSelector: `[data-js-ai-loading-spinner]`,
+    loaderSelector: `[data-js-loading-spinner]`,
+
+    outputAiMovieTitleSelector: `[data-js-ai-movie-title]`,
+    outputAiMovieYearSelector: `[data-js-ai-movie-year]`,
+    outputAiMovieConfidenceSelector: `[data-js-ai-movie-confidence]`,
   }
 
   stateClasses = {
@@ -68,7 +78,7 @@ class SearchForm {
     },
   }
 
-  constructor () {
+  constructor (modals) {
     this.manualFormElement = document.querySelector(this.selectors.manualFormSelector)
     this.aiFormElement = document.querySelector(this.selectors.aiFormSelector)
 
@@ -79,9 +89,19 @@ class SearchForm {
     this.filtersRangeElement = document.querySelector(this.selectors.filtersRangeSelector)
     this.filtersRangeOutputElement = document.querySelector(this.selectors.filtersRangeOutputSelector)
 
+    this.aiFormSubmitButtonElement = document.querySelector(this.selectors.aiFormSubmitButtonSelector)
+    this.manualFormSubmitButtonElement = document.querySelector(this.selectors.manualFormSubmitButtonSelector)
     this.loadMoreButtonElement = document.querySelector(this.selectors.loadMoreButtonSelector)
 
-    this.movieResults = new MovieResults()
+    this.loaderAiElement = document.querySelector(this.selectors.loaderAiSelector)
+    this.loaderElement = document.querySelector(this.selectors.loaderSelector)
+
+    this.outputAiMovieTitleElement = document.querySelector(this.selectors.outputAiMovieTitleSelector)
+    this.outputAiMovieYearElement = document.querySelector(this.selectors.outputAiMovieYearSelector)
+    this.outputAiMovieConfidenceElement = document.querySelector(this.selectors.outputAiMovieConfidenceSelector)
+
+    this.movieResults = new MovieResults(modals)
+    this.alert = new AlertCollection()
     this.isAnimating = false
     this.genresRU = [
       {id: 28, name: 'боевик'},
@@ -116,7 +136,7 @@ class SearchForm {
     this.loadSelectOptions()
     this.bindEvents()
 
-    this.searchByFilters()
+    // this.searchByFilters()
   }
 
   // Detect language (ru/en) by checking for cyrillic characters
@@ -141,9 +161,31 @@ class SearchForm {
     }
   }
 
-  // Log API errors to console
+  // Log API errors to console and show user-friendly messages
   handleApiError(error, context) {
     console.log(`Error in ${context}:`, error)
+
+    const errorMessages = {
+      // AI (Groq) errors
+      BAD_REQUEST: 'Неправильный формат запроса. Попробуйте описать фильм по-другому.',
+      UNAUTHORIZED: 'Ошибка авторизации API. Проверьте настройки.',
+      RATE_LIMIT: 'Превышен лимит запросов. Попробуйте позже.',
+      SERVER_ERROR: 'Сервер временно недоступен. Попробуйте позже.',
+      NETWORK_ERROR: 'Не удалось связаться с сервером. Проверьте подключение к интернету.',
+      INVALID_RESPONSE: 'Получен некорректный ответ от сервера. Попробуйте еще раз.',
+
+      // TMDB errors
+      TMDB_UNAUTHORIZED: 'Ошибка авторизации TMDB API. Проверьте настройки.',
+      TMDB_NOT_FOUND: 'Запрашиваемые данные не найдены.',
+      TMDB_RATE_LIMIT: 'Превышен лимит запросов к базе данных фильмов. Попробуйте позже.',
+      TMDB_SERVER_ERROR: 'Сервер базы данных фильмов временно недоступен. Попробуйте позже.',
+      TMDB_NETWORK_ERROR: 'Не удалось связаться с базой данных фильмов. Проверьте подключение к интернету.',
+    }
+
+    const errorType = error.message
+    const message = errorMessages[errorType] || 'Произошла неизвестная ошибка. Попробуйте еще раз.'
+
+    this.alert.showError(message)
   }
 
   // Update pagination info from API response
@@ -178,7 +220,22 @@ class SearchForm {
       method: 'GET',
       headers: this.getTmdbHeaders(),
     })
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) {
+          if (res.status === 401) {
+            throw new Error('TMDB_UNAUTHORIZED')
+          } else if (res.status === 404) {
+            throw new Error('TMDB_NOT_FOUND')
+          } else if (res.status === 429) {
+            throw new Error('TMDB_RATE_LIMIT')
+          } else if (res.status >= 500) {
+            throw new Error('TMDB_SERVER_ERROR')
+          } else {
+            throw new Error('TMDB_NETWORK_ERROR')
+          }
+        }
+        return res.json()
+      })
       .then(json => {
         console.log(`Search by ${searchType} results:`, json)
         this.updatePaginationInfo(json)
@@ -193,6 +250,9 @@ class SearchForm {
   // TMDB API Methods
   // Search movies by title with optional client-side filters
   searchByTitle(formData, page = 1) {
+    this.disableAllButtons()
+    this.showLoader()
+
     const params = new URLSearchParams({
       query: formData.get('movie-title').trim(),
       include_adult: 'false',
@@ -209,10 +269,17 @@ class SearchForm {
         this.renderResults()
       })
       .catch(() => {})
+      .finally(() => {
+        this.enableAllButtons()
+        this.hideLoader()
+      })
   }
 
   // Search movies by filters (genre, year, rating) or get popular movies
   searchByFilters(formData = null, page = 1) {
+    this.disableAllButtons()
+    this.showLoader()
+
     const params = new URLSearchParams({
       include_adult: 'false',
       include_video: 'false',
@@ -251,6 +318,10 @@ class SearchForm {
         this.renderResults()
       })
       .catch(() => {})
+      .finally(() => {
+        this.enableAllButtons()
+        this.hideLoader()
+      })
   }
 
   // Filters
@@ -306,6 +377,9 @@ class SearchForm {
   // AI Search Methods
   // Use AI to identify movie from natural language description
   searchWithAi(formData) {
+    this.disableAllButtons()
+    this.showLoaderAi()
+
     const userDescription = formData.get('ai-description')
     const language = this.detectLanguage(userDescription)
 
@@ -339,25 +413,50 @@ class SearchForm {
     })
       .then(res => {
         if (!res.ok) {
-          throw new Error(`Groq API error: ${res.status}`)
+          if (res.status === 400) {
+            throw new Error('BAD_REQUEST')
+          } else if (res.status === 401) {
+            throw new Error('UNAUTHORIZED')
+          } else if (res.status === 429) {
+            throw new Error('RATE_LIMIT')
+          } else if (res.status >= 500) {
+            throw new Error('SERVER_ERROR')
+          } else {
+            throw new Error('NETWORK_ERROR')
+          }
         }
         return res.json()
       })
       .then(json => {
         if (!json.choices?.[0]?.message?.content) {
-          throw new Error('Invalid response structure from Groq API')
+          throw new Error('INVALID_RESPONSE')
         }
 
         const movieInfo = JSON.parse(json.choices[0].message.content)
         console.log('AI response:', movieInfo)
 
+        this.updateAiOutputInfo(movieInfo)
         this.searchMovieByAiResult(movieInfo)
       })
-      .catch(error => this.handleApiError(error, 'searchWithAi'))
+      .catch(error => {
+        this.handleApiError(error, 'searchWithAi')
+        this.enableAllButtons()
+        this.hideLoaderAi()
+      })
   }
 
   // Search TMDB using AI-identified movie info
   searchMovieByAiResult(movieInfo, page = 1) {
+    // Кнопки уже отключены в searchWithAi, не отключаем повторно при page = 1
+    if (page > 1) {
+      this.disableAllButtons()
+    } else {
+      // При первом вызове (после AI) скрываем AI loader
+      this.hideLoaderAi()
+    }
+
+    this.showLoader()
+
     const params = new URLSearchParams({
       query: movieInfo.movieTitle.trim(),
       include_adult: 'false',
@@ -374,6 +473,10 @@ class SearchForm {
         this.renderResults()
       })
       .catch(() => {})
+      .finally(() => {
+        this.enableAllButtons()
+        this.hideLoader()
+      })
   }
 
   // Find movie in current results by ID
@@ -406,6 +509,16 @@ class SearchForm {
   }
 
   // UI Methods
+
+  // Update Ai output
+  updateAiOutputInfo(movieInfo) {
+    const { movieTitle, releaseYear, confidence } = movieInfo
+
+    this.outputAiMovieTitleElement.textContent = movieTitle
+    this.outputAiMovieYearElement.textContent = releaseYear
+    this.outputAiMovieConfidenceElement.setAttribute('data-confidence', confidence)
+  }
+
   // Populate genre select with Russian genre names
   loadSelectOptions() {
     this.genresRU.forEach(( {id, name } ) => {
@@ -465,6 +578,40 @@ class SearchForm {
     setTimeout(() => {
       this.isAnimating = false
     }, transitionDuration)
+  }
+
+  // Disable all buttons
+  disableAllButtons() {
+    this.loadMoreButtonElement.setAttribute('disabled', '')
+    this.aiFormSubmitButtonElement.setAttribute('disabled', '')
+    this.manualFormSubmitButtonElement.setAttribute('disabled', '')
+  }
+
+  // Enable all buttons
+  enableAllButtons() {
+    this.loadMoreButtonElement.removeAttribute('disabled')
+    this.aiFormSubmitButtonElement.removeAttribute('disabled')
+    this.manualFormSubmitButtonElement.removeAttribute('disabled')
+  }
+
+  // Show loader Ai
+  showLoaderAi() {
+    this.loaderAiElement.removeAttribute('hidden')
+  }
+
+  // Show loader
+  showLoader() {
+    this.loaderElement.removeAttribute('hidden')
+  }
+
+  // Hide loader Ai
+  hideLoaderAi() {
+    this.loaderAiElement.setAttribute('hidden', '')
+  }
+
+  // Hide loader
+  hideLoader() {
+    this.loaderElement.setAttribute('hidden', '')
   }
 
   // Close filters with animation

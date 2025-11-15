@@ -1,0 +1,55 @@
+@use '../helpers' as *;
+
+.loader {
+  --circles-color: oklch(100% 0 0deg / 100);
+
+  @include abs-cover;
+
+  width: 100%;
+  height: 100%;
+  background-color: oklch(0% 0 0deg / 0.35);
+  backdrop-filter: blur(2px);
+  border-radius: inherit;
+  z-index: 2;
+
+  &__circles {
+    @include abs-center;
+
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  &__circle-1,
+  &__circle-2,
+  &__circle-3 {
+    @include square(24px);
+
+    background-color: var(--circles-color);
+    border-radius: 50%;
+    box-shadow: var(--shadow-m);
+    animation: loader-jump 1s ease-in-out infinite;
+  }
+
+  &__circle-1 {
+    animation-delay: 0s;
+  }
+
+  &__circle-2 {
+    animation-delay: 0.25s;
+  }
+
+  &__circle-3 {
+    animation-delay: 0.5s;
+  }
+}
+
+@keyframes loader-jump {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+}
