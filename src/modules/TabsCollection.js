@@ -81,6 +81,11 @@ class Tabs {
   }
 
   onKeyDown = (event) => {
+    // Ignore keyboard events from interactive elements
+    if (event.target.matches('input, textarea, select')) {
+      return
+    }
+
     const { code, metaKey } = event
 
     const action = {
