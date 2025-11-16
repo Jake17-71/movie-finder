@@ -78,6 +78,7 @@ class MovieResults {
     this.clearResults()
 
     if (!movies || movies.length === 0) {
+      this.updateFoundNumber(0)
       this.showNoResults()
       return
     }
