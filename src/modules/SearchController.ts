@@ -242,18 +242,20 @@ class SearchController {
     }
 
     const nextPage = this.paginationService.getNextPage()
-    if (!nextPage || !this.lastSearchParams) {
+    if (!nextPage) {
       return
     }
 
     switch (this.lastSearchType) {
       case 'title':
+        if (!this.lastSearchParams) {return}
         this.searchByTitle(this.lastSearchParams as FormData, nextPage)
         break
       case 'filters':
         this.searchByFilters(this.lastSearchParams as FormData | null, nextPage)
         break
       case 'ai':
+        if (!this.lastSearchParams) {return}
         this.searchMovieByAiResult(
           this.lastSearchParams as AIMovieInfo,
           nextPage
