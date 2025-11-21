@@ -209,7 +209,6 @@ class ApiService {
       include_adult: 'false',
       language: this.apiConfig.tmdb.language,
       page: page.toString(),
-      year: movieInfo.releaseYear.toString(),
     })
 
     const url = `${this.apiConfig.tmdb.baseUrl}/search/movie?${params.toString()}`

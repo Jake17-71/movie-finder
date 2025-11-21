@@ -55,11 +55,16 @@ class FilterService {
 
   // Extract filters from FormData
   extractFiltersFromFormData(formData: FormData): MovieFilters {
+    const genre = formData.get('movie-genre') as string | null
+    const yearFrom = formData.get('movie-year-from') as string | null
+    const yearTo = formData.get('movie-year-to') as string | null
+    const rating = formData.get('movie-rating') as string | null
+
     return {
-      genre: (formData.get('movie-genre') as string | null) ?? undefined,
-      yearFrom: (formData.get('movie-year-from') as string | null) ?? undefined,
-      yearTo: (formData.get('movie-year-to') as string | null) ?? undefined,
-      rating: (formData.get('movie-rating') as string | null) ?? undefined,
+      genre: genre && genre.trim() !== '' ? genre : undefined,
+      yearFrom: yearFrom && yearFrom.trim() !== '' ? yearFrom : undefined,
+      yearTo: yearTo && yearTo.trim() !== '' ? yearTo : undefined,
+      rating: rating && rating.trim() !== '' ? rating : undefined,
     }
   }
 }
