@@ -1,19 +1,21 @@
-const rootSelector = '[data-js-theme-change]'
-const bodyElement = document.body
+import { Theme, ThemeSelectors } from '@/types'
+
+const rootSelector: string = '[data-js-theme-change]'
+const bodyElement: HTMLElement = document.body
 
 class ThemeChange {
-  selectors = {
+  private readonly selectors: ThemeSelectors = {
     root: rootSelector,
     button: `[data-js-theme-button]`,
     toggle: `[data-js-theme-button-toggle]`,
   }
 
-  stateClasses = {
+  private readonly stateClasses: { isActive: string; light: string } = {
     isActive: 'is-active',
     light: 'light',
   }
 
-  icons = {
+  private readonly icons: { moon: string; sun: string } = {
     moon: `<?xml version="1.0" encoding="iso-8859-1"?>
 <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
 <svg height="800px" width="800px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
@@ -78,7 +80,11 @@ class ThemeChange {
 </svg>`,
   }
 
-  constructor(rootElement) {
+  private rootElement: HTMLElement
+  private readonly buttonElement: HTMLButtonElement | null
+  private readonly toggleElement: HTMLSpanElement | null
+
+  constructor(rootElement: HTMLElement) {
     this.rootElement = rootElement
     this.buttonElement = this.rootElement.querySelector(this.selectors.button)
     this.toggleElement = this.rootElement.querySelector(this.selectors.toggle)
@@ -88,9 +94,15 @@ class ThemeChange {
     this.bindEvent()
   }
 
-  onButtonClick() {
-    const isLightNow = bodyElement.classList.contains(this.stateClasses.light)
+  onButtonClick(): void {
+    const isLightNow: boolean = bodyElement.classList.contains(
+      this.stateClasses.light
+    )
     bodyElement.classList.toggle(this.stateClasses.light)
+
+    if (!this.toggleElement) {
+      return
+    }
     this.toggleElement.classList.toggle(this.stateClasses.isActive)
 
     localStorage.setItem('theme', isLightNow ? 'dark' : 'light')
@@ -98,37 +110,56 @@ class ThemeChange {
     this.updateIcon()
   }
 
-  updateIcon() {
-    const isLightNow = bodyElement.classList.contains(this.stateClasses.light)
+  updateIcon(): void {
+    const isLightNow: boolean = bodyElement.classList.contains(
+      this.stateClasses.light
+    )
+
+    if (!this.toggleElement) {
+      return
+    }
     this.toggleElement.innerHTML = isLightNow ? this.icons.sun : this.icons.moon
   }
 
-  loadTheme() {
+  loadTheme(): void {
     try {
       const savedTheme = localStorage.getItem('theme')
 
       if (savedTheme === null) {
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-        const themeToSet = prefersDark ? 'dark' : 'light'
+        const prefersDark: boolean = window.matchMedia(
+          '(prefers-color-scheme: dark)'
+        ).matches
+        const themeToSet: Theme = prefersDark ? 'dark' : 'light'
 
         localStorage.setItem('theme', themeToSet)
 
         if (themeToSet === 'light') {
           bodyElement.classList.add(this.stateClasses.light)
+
+          if (!this.toggleElement) {
+            return
+          }
           this.toggleElement.classList.add(this.stateClasses.isActive)
         }
       } else {
         if (savedTheme === 'light') {
           bodyElement.classList.add(this.stateClasses.light)
+
+          if (!this.toggleElement) {
+            return
+          }
           this.toggleElement.classList.add(this.stateClasses.isActive)
         }
       }
     } catch (error) {
-      console.log("Load Theme error:", error)
+      console.log('Load Theme error:', error)
     }
   }
 
-  bindEvent() {
+  bindEvent(): void {
+    if (!this.buttonElement) {
+      return
+    }
     this.buttonElement.addEventListener('click', () => this.onButtonClick())
   }
 }
@@ -138,8 +169,8 @@ class ThemeChangeCollection {
     this.init()
   }
 
-  init() {
-    document.querySelectorAll(rootSelector).forEach((element) => {
+  init(): void {
+    document.querySelectorAll<HTMLElement>(rootSelector).forEach((element) => {
       new ThemeChange(element)
     })
   }

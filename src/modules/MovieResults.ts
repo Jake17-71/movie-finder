@@ -1,30 +1,44 @@
-class MovieResults {
+import { Movie, MovieResultsSelectors, TMDBResponse } from '@/types'
+import Modals from '@/modules/Modals.ts'
 
-  selectors = {
+class MovieResults {
+  private readonly selectors: MovieResultsSelectors = {
     resultListSelector: `[data-js-result-list]`,
     resultFoundNumberSelector: `[data-js-found-number]`,
   }
 
-  constructor (modals) {
-    this.resultListElement = document.querySelector(this.selectors.resultListSelector)
-    this.resultFoundNumberElement = document.querySelector(this.selectors.resultFoundNumberSelector)
+  private readonly resultListElement: HTMLDivElement | null
+  private readonly resultFoundNumberElement: HTMLSpanElement | null
+  private readonly modals: Modals
+
+  constructor(modals: Modals) {
+    this.resultListElement = document.querySelector(
+      this.selectors.resultListSelector
+    )
+    this.resultFoundNumberElement = document.querySelector(
+      this.selectors.resultFoundNumberSelector
+    )
 
     this.modals = modals
   }
 
   // Create and append movie card to results list
-  createMovieCard(movie) {
-    const movieCardElement = document.createElement('article')
+  createMovieCard(movie: Movie): void {
+    const movieCardElement: HTMLElement = document.createElement('article')
     movieCardElement.className = 'movie-card'
     movieCardElement.setAttribute('tabindex', '0')
-    movieCardElement.dataset.jsMovieCard = movie.id
+    movieCardElement.dataset.jsMovieCard = String(movie.id)
 
-    const title = movie.title || 'Unknown Title'
-    const year = movie.release_date ? new Date(movie.release_date).getFullYear() : 'N/A'
-    const rating = movie.vote_average ? Math.round(movie.vote_average * 10) / 10 : 0
-    const posterUrl = `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+    const title: string = movie.title || 'Unknown Title'
+    const year: number | string = movie.release_date
+      ? new Date(movie.release_date).getFullYear()
+      : 'N/A'
+    const rating: number = movie.vote_average
+      ? Math.round(movie.vote_average * 10) / 10
+      : 0
+    const posterUrl: string = `https://image.tmdb.org/t/p/w500${movie.poster_path}`
 
-    const imageWrapperElement = document.createElement('div')
+    const imageWrapperElement: HTMLDivElement = document.createElement('div')
     imageWrapperElement.className = 'movie-card__image-wrapper'
     imageWrapperElement.innerHTML = `
          <img
@@ -35,7 +49,7 @@ class MovieResults {
          />
     `
 
-    const infoElement = document.createElement('div')
+    const infoElement: HTMLDivElement = document.createElement('div')
     infoElement.className = 'movie-card__info'
     infoElement.innerHTML = `
               <div class="movie-card__meta">
@@ -56,7 +70,7 @@ class MovieResults {
               </div>
     `
 
-    const titleWrapperElement = document.createElement('div')
+    const titleWrapperElement: HTMLDivElement = document.createElement('div')
     titleWrapperElement.className = 'movie-card__title-wrapper'
     titleWrapperElement.innerHTML = `
               <h3 class="movie-card__title h5" title="${title}">
@@ -67,14 +81,24 @@ class MovieResults {
     movieCardElement.appendChild(infoElement)
     movieCardElement.appendChild(titleWrapperElement)
 
-    movieCardElement.addEventListener('click', (e) => this.modals.onMovieCardClick(e))
-    movieCardElement.addEventListener('keydown', (e) => this.modals.onMovieCardKeyDown(e))
+    movieCardElement.addEventListener('click', (e: PointerEvent): void =>
+      this.modals.onMovieCardClick(e)
+    )
+    movieCardElement.addEventListener('keydown', (e: KeyboardEvent): void =>
+      this.modals.onMovieCardKeyDown(e)
+    )
 
+    if (!this.resultListElement) {
+      return
+    }
     this.resultListElement.appendChild(movieCardElement)
   }
 
   // Render movies list and update total count
-  renderMovies(movies, totalResults = 0) {
+  renderMovies(
+    movies: TMDBResponse['results'],
+    totalResults: TMDBResponse['total_results'] = 0
+  ): void {
     this.clearResults()
 
     if (!movies || movies.length === 0) {
@@ -91,21 +115,21 @@ class MovieResults {
   }
 
   // Clear all movie cards from results list
-  clearResults() {
+  clearResults(): void {
     if (this.resultListElement) {
       this.resultListElement.innerHTML = ''
     }
   }
 
   // Update display of total results count
-  updateFoundNumber(totalResults) {
+  updateFoundNumber(totalResults: TMDBResponse['total_results']): void {
     if (this.resultFoundNumberElement) {
-      this.resultFoundNumberElement.textContent = totalResults
+      this.resultFoundNumberElement.textContent = String(totalResults)
     }
   }
 
   // Show "no results" message
-  showNoResults() {
+  showNoResults(): void {
     if (this.resultListElement) {
       this.resultListElement.innerHTML = '<p>Фильмы не найдены</p>'
     }

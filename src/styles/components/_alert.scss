@@ -2,32 +2,27 @@
 
 .alert {
   position: fixed;
-  bottom: 24px;
-  right: 24px;
   z-index: 1000;
-
+  right: 24px;
+  bottom: 24px;
   display: flex;
   align-items: center;
   gap: 16px;
-
   min-width: 300px;
   max-width: 400px;
   padding: 16px 20px;
-
   background-color: var(--bg-light);
   border: var(--border);
   border-radius: var(--border-radius);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-
-  opacity: 0;
   visibility: hidden;
+  opacity: 0;
+  transition: all var(--transition-duration) ease-in-out;
   transform: translateX(calc(100% + 24px));
 
-  transition: all var(--transition-duration) ease-in-out;
-
   @include mobile {
-    bottom: 16px;
     right: 16px;
+    bottom: 16px;
     left: 16px;
     min-width: auto;
     max-width: none;
@@ -35,8 +30,8 @@
   }
 
   &.is-visible {
-    opacity: 1;
     visibility: visible;
+    opacity: 1;
     transform: translateX(0);
 
     @include mobile {
@@ -99,26 +94,23 @@
   @include fluid-text(16, 14);
 
   font-weight: 500;
-  color: var(--text);
   line-height: 1.4;
+  color: var(--text);
   word-break: break-word;
 }
 
 .alert__close {
   flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 24px;
   height: 24px;
   padding: 0;
-
+  color: var(--text-muted);
   background: none;
   border: none;
-  color: var(--text-muted);
   cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
   transition: color var(--transition-duration);
 
   @include focus-visible-no-typing;

@@ -3,6 +3,7 @@
 .result {
   @include flex-center;
 
+  position: relative;
   flex-direction: column;
   gap: 24px;
   width: 100%;
@@ -14,7 +15,6 @@
   border: var(--border-width-xm) solid var(--border);
   border-radius: var(--border-radius-l);
   box-shadow: var(--shadow-l);
-  position: relative;
 
   @include tablet {
     gap: 12px;
